@@ -5,7 +5,7 @@ import time
 
 detection_model_path = 'haarcascade_files/haarcascade_frontalface_default.xml'
 face_detection = cv2.CascadeClassifier(detection_model_path)
-file_model = 'ResNet18.sim.onnx'
+file_model = 'MiniXception.sim.onnx'        # MiniXception, ResNet18
 net = cv2.dnn.readNet(file_model)
 
 EMOTIONS = ["angry" ,"disgust","scared", "happy", "sad", "surprised","neutral"]
