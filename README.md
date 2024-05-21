@@ -1,6 +1,13 @@
 # Emotion-recogniton-pytorch
 This project focuses on recognizing human emotions from facial expressions using deep learning techniques implemented in PyTorch. The model is trained on the FER-2013 dataset, a widely-used dataset in the field of facial expression recognition, achieving 81.3% accuracy.Moreover, we deploy the model on Orange Pi AI Pro using Ascendcl.
 
+## FER2013 Dataset ##
+- Dataset from [https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data](https://www.kaggle.com/datasets/deadskull7/fer2013)
+Image Properties: 48 x 48 pixels (2304 bytes)
+labels: 0=Angry, 1=Disgust, 2=Fear, 3=Happy, 4=Sad, 5=Surprise, 6=Neutral
+The training set consists of 28,709 examples. The public test set consists of 3,589 examples. The private test set consists of another 3,589 examples.
+- download the dataset(fer2013.csv) then put it in the "fer2013" folder
+
 # Install
 
 ```bash
@@ -9,7 +16,11 @@ cd Emotion-recogniton-pytorch
 pip install -r requirements.txt  # install
 ```
 
+# Train
 
+```bash
+python train_emotion_classifier.py
+```
 
 ## Demos ##
 ![Image text](https://github.com/lyz678/Emotion-recogniton-pytorch/blob/main/result/demo1.jpg)
