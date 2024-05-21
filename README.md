@@ -3,6 +3,12 @@ This project focuses on recognizing human emotions from facial expressions using
 In addition, we used Ascendcl to deploy the model to the Orange Pi AI Pro with Huawei Ascend 310B NPU to achieve real-time expression detection on mobile devices.
 ![Image text](http://www.orangepi.cn/img/aipro/aipro-18.png)
 
+# Install
+```bash
+git clone https://github.com/lyz678/Emotion-recogniton-pytorch.git  # clone
+cd Emotion-recogniton-pytorch
+pip install -r requirements.txt  # install
+```
 
 # FER2013 Dataset
 - Dataset from [https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data](https://www.kaggle.com/datasets/deadskull7/fer2013)
@@ -16,23 +22,6 @@ cd fer2013
 pip install kaggle
 kaggle datasets download -d deadskull7/fer2013
 unzip fer2013
-```
-
-
-
-# Dependencies
-- Python 3.9
-- Pytorch 2.3
-- opencv-python 4.9.0.80 
-- onnx 1.12  <Br/>
-......
-
-  
-# Install
-```bash
-git clone https://github.com/lyz678/Emotion-recogniton-pytorch.git  # clone
-cd Emotion-recogniton-pytorch
-pip install -r requirements.txt  # install
 ```
 
 # Train and Eval model
