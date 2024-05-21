@@ -30,7 +30,7 @@ opt = parser.parse_args()
 
 # loading dataset
 faces, emotions = load_fer2013()
-xtrain, xtest, ytrain, ytest = train_test_split(faces, emotions, test_size=0.2, shuffle=True)
+xtrain, xtest, ytrain, ytest = train_test_split(faces, emotions, test_size=validation_split, shuffle=True)
 
 
 train_dataset = FER2013Dataset(xtrain, ytrain, transform=transforms.Compose([
