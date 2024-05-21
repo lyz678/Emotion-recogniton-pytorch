@@ -9,7 +9,6 @@ The training set consists of 28,709 examples. The public test set consists of 3,
 - download the dataset(fer2013.csv) then put it in the "fer2013" folder
 
 
-
 # Dependencies
 - Python 3.9
 - Pytorch 2.3
@@ -47,6 +46,6 @@ python run_on_cpu.py
 ![Image text](https://github.com/lyz678/Emotion-recogniton-pytorch/blob/main/result/ConfusionMatrix.jpg)
 
 # fer2013 Accurary      
-- Model：    VGG19 ;        test accuracy：  65% <Br/>
+- Model：    miniXception ;        test accuracy：  65% <Br/>
 - Model：   Resnet18 ;      test accuracy：  82%   
 
