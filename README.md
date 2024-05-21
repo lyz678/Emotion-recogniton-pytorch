@@ -62,5 +62,7 @@ cd run_on_Ascend310B
 atc --model=miniXception.sim.onnx --framework=5 --output=miniXception.sim --input_format=NCHW --input_shape="input.1:1,1,48,48" --log=error --soc_version=Ascend310B1 #.onnx to .om
 python run_om.py
 ```
+![Image text](https://github.com/lyz678/Emotion-recogniton-pytorch/blob/main/result/demo3.JPG)
+
 
 
