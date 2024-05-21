@@ -28,7 +28,7 @@ pip install -r requirements.txt  # install
 ```
 
 # Train and Eval model
-- python train_emotion_classifier.py.py --model MiniXception --bs 128 --lr 0.01
+- python train_emotion_classifier.py --model MiniXception --bs 128 --lr 0.01
 
 
 # .pth to .onnx
