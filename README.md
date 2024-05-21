@@ -12,8 +12,8 @@ pip install -r requirements.txt  # install
 
 
 ## Demos ##
-![Image text](https://github.com/lyz678/Emotion-recogniton-pytorch/blob/main/demo1.jpg)
-![Image text](https://github.com/lyz678/Emotion-recogniton-pytorch/blob/main/demo2.jpg)
+![Image text](https://github.com/lyz678/Emotion-recogniton-pytorch/blob/main/result/demo1.jpg)
+![Image text](https://github.com/lyz678/Emotion-recogniton-pytorch/blob/main/result/demo2.jpg)
 
 
 ## Dependencies ##
@@ -35,7 +35,7 @@ The training set consists of 28,709 examples. The public test set consists of 3,
 
 ### plot confusion matrix ###
 - python plot_fer2013_confusion_matrix.py --model MiniXception --bs 128
-![Image text](https://github.com/lyz678/Emotion-recogniton-pytorch/blob/main/ConfusionMatrix.jpg)
+![Image text](https://github.com/lyz678/Emotion-recogniton-pytorch/blob/main/result/ConfusionMatrix.jpg)
 
 ###              fer2013 Accurary             ###
 
