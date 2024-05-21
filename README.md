@@ -23,7 +23,7 @@ The training set consists of 28,709 examples. The public test set consists of 3,
 
 ### plot confusion matrix ###
 - python plot_fer2013_confusion_matrix.py --model MiniXception --bs 128
-![Image text](https://github.com/lyz678/Emotion-recogniton-pytorch/blob/main/README.md)
+![Image text](https://github.com/lyz678/Emotion-recogniton-pytorch/blob/main/ConfusionMatrix.jpg)
 
 ###              fer2013 Accurary             ###
 
