@@ -50,5 +50,17 @@ python run_on_cpu.py
 
 # fer2013 Accurary      
 - Model：    miniXception ;        test accuracy：  65% <Br/>
-- Model：   Resnet18 ;      test accuracy：  82%   
+- Model：   Resnet18 ;      test accuracy：  82%
+
+# run on Orange Pi AI Pro (Ascend310B NPU)
+
+- download the run_on_Ascend310B file to Orange Pi AI Pro
+
+  
+```bash
+cd run_on_Ascend310B
+atc --model=miniXception.sim.onnx --framework=5 --output=miniXception.sim --input_format=NCHW --input_shape="input.1:1,1,48,48" --log=error --soc_version=Ascend310B1 #.onnx to .om
+python run_om.py
+```
+
 
