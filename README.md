@@ -10,6 +10,14 @@ Image Properties: 48 x 48 pixels (2304 bytes)
 labels: 0=Angry, 1=Disgust, 2=Fear, 3=Happy, 4=Sad, 5=Surprise, 6=Neutral
 The training set consists of 28,709 examples. The public test set consists of 3,589 examples. The private test set consists of another 3,589 examples.
 - download the dataset(fer2013.csv) then put it in the "fer2013" folder
+  
+```bash
+cd fer2013
+pip install kaggle
+kaggle datasets download -d deadskull7/fer2013
+unzip fer2013
+```
+
 
 
 # Dependencies
