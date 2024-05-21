@@ -1,5 +1,5 @@
 # Emotion-recogniton-pytorch
-This project focuses on recognizing human emotions from facial expressions using deep learning techniques implemented in PyTorch. The model is trained on the FER-2013 dataset, a widely-used dataset in the field of facial expression recognition, achieving 81.3% accuracy.Moreover, we deploy the model on Orange Pi AI Pro using Ascendcl.
+This project focuses on recognizing human emotions from facial expressions using deep learning techniques implemented in PyTorch. The model is trained on the FER-2013 dataset, a widely-used dataset in the field of facial expression recognition, achieving 81.3% accuracy. Moreover, we deploy the trained model on Orange Pi AI Pro using Ascendcl.
 
 # FER2013 Dataset
 - Dataset from [https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data](https://www.kaggle.com/datasets/deadskull7/fer2013)
