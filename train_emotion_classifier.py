@@ -6,6 +6,7 @@ from torch.utils.data import DataLoader
 from torchvision import transforms
 from sklearn.model_selection import train_test_split
 import argparse
+import logging
 from load_and_process import load_fer2013, FER2013Dataset
 from models.cnn import *
 
@@ -17,8 +18,12 @@ num_classes = 7
 num_workers = 8
 patience = 50
 base_path = 'models/'
+log_path = os.path.join(base_path, 'logging.txt')
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
+# Configure logging
+logging.basicConfig(filename=log_path, level=logging.INFO, format='%(asctime)s - %(message)s')
+logger = logging.getLogger()
 
 parser = argparse.ArgumentParser(description='PyTorch Fer2013 CNN Training')
 parser.add_argument('--model', type=str, default='ResNet18', help='maybe MiniXception, ResNet18')
@@ -27,11 +32,9 @@ parser.add_argument('--lr', default=0.01, type=float, help='learning rate')
 parser.add_argument('--pretrained', default=False, type=bool, help='True or False')
 opt = parser.parse_args()
 
-
 # loading dataset
 faces, emotions = load_fer2013()
-xtrain, xtest, ytrain, ytest = train_test_split(faces, emotions, test_size=validation_split, shuffle=True)
-
+xtrain, xtest, ytrain, ytest = train_test_split(faces, emotions, test_size=0.2, shuffle=True)
 
 train_dataset = FER2013Dataset(xtrain, ytrain, transform=transforms.Compose([
     transforms.RandomRotation(10),
@@ -51,26 +54,25 @@ test_loader = DataLoader(test_dataset, batch_size=opt.bs, shuffle=False, num_wor
 # model, loss, optimizer
 if opt.model == 'MiniXception':
     model = MiniXception(input_shape, num_classes)
-elif opt.model  == 'ResNet18':
+elif opt.model == 'ResNet18':
     model = ResNet18(input_shape, num_classes)
 
-
 best_model_path = os.path.join(base_path, 'best_model.pth')
-if opt.pretrained :
+if opt.pretrained:
     model.load_state_dict(torch.load(best_model_path))  # Load the pre-trained model
 model.to(device)
 
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters(), lr = opt.lr)
+optimizer = optim.Adam(model.parameters(), lr=opt.lr)
 
 # learning rate scheduler
-scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', factor=0.1, patience=int(patience/4))
+scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', factor=0.1, patience=int(patience / 4))
 
 # training and validation loop
 best_val_loss = float('inf')
 early_stop_counter = 0
 
-print(f'train : {opt.model}')
+logger.info(f'Training started with model: {opt.model}')
 
 for epoch in range(num_epochs):
     model.train()
@@ -117,11 +119,12 @@ for epoch in range(num_epochs):
 
     scheduler.step(val_loss)
 
-    print(f'Epoch {epoch+1}/{num_epochs}, '
-        f'Learning Rate: {optimizer.param_groups[0]["lr"]:.6f}, '  # 获取当前学习率
-        f'Train Loss: {train_loss:.4f}, Train Accuracy: {train_accuracy:.4f}, '
-        f'Val Loss: {val_loss:.4f}, Val Accuracy: {val_accuracy:.4f}')
-
+    log_message = (f'Epoch {epoch + 1}/{num_epochs}, '
+                   f'Learning Rate: {optimizer.param_groups[0]["lr"]:.6f}, '  # 获取当前学习率
+                   f'Train Loss: {train_loss:.4f}, Train Accuracy: {train_accuracy:.4f}, '
+                   f'Val Loss: {val_loss:.4f}, Val Accuracy: {val_accuracy:.4f}')
+    print(log_message)
+    logger.info(log_message)
 
     # checkpointing
     model_names = f'{base_path}{opt.model}.{epoch:02d}-accuracy{train_accuracy:.2f}.pth'
@@ -137,6 +140,8 @@ for epoch in range(num_epochs):
 
     if early_stop_counter >= patience:
         print("Early stopping")
+        logger.info("Early stopping")
         break
 
+logger.info("Training complete. Best model saved to: " + best_model_path)
 print("Training complete. Best model saved to:", best_model_path)
