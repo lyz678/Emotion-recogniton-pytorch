@@ -1,21 +1,13 @@
 # Emotion-recogniton-pytorch
 This project focuses on recognizing human emotions from facial expressions using deep learning techniques implemented in PyTorch. The model is trained on the FER-2013 dataset, a widely-used dataset in the field of facial expression recognition, achieving 81.3% accuracy.Moreover, we deploy the model on Orange Pi AI Pro using Ascendcl.
 
-<details open>
-<summary>Install</summary>
-
-Clone repo and install [requirements.txt](https://github.com/ultralytics/yolov5/blob/master/requirements.txt) in a [**Python>=3.8.0**](https://www.python.org/) environment, including [**PyTorch>=1.8**](https://pytorch.org/get-started/locally/).
+# Quick Start
 
 ```bash
 git clone https://github.com/ultralytics/yolov5  # clone
 cd yolov5
 pip install -r requirements.txt  # install
 ```
-
-</details>
-
-<details>
-<summary>Inference</summary>
 
 
 
