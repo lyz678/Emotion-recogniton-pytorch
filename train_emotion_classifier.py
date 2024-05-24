@@ -9,6 +9,7 @@ import argparse
 import logging
 from load_and_process import load_fer2013, FER2013Dataset
 from models.cnn import *
+from tqdm import tqdm 
 
 # parameters
 num_epochs = 200
@@ -43,13 +44,13 @@ train_dataset = FER2013Dataset(xtrain, ytrain, transform=transforms.Compose([
     transforms.Normalize(mean=[0.5], std=[0.5])
 ]))
 
-test_dataset = FER2013Dataset(xtest, ytest, transform=transforms.Compose([
+val_dataset = FER2013Dataset(xtest, ytest, transform=transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.5], std=[0.5])
 ]))
 
 train_loader = DataLoader(train_dataset, batch_size=opt.bs, shuffle=True, num_workers=num_workers)
-test_loader = DataLoader(test_dataset, batch_size=opt.bs, shuffle=False, num_workers=num_workers)
+val_loader = DataLoader(val_dataset, batch_size=opt.bs, shuffle=False, num_workers=num_workers)
 
 # model, loss, optimizer
 if opt.model == 'MiniXception':
@@ -75,12 +76,13 @@ early_stop_counter = 0
 logger.info(f'Training started with model: {opt.model}')
 
 for epoch in range(num_epochs):
+    #train
     model.train()
     train_loss = 0
     train_correct = 0
     train_total = 0
-
-    for faces, emotions in train_loader:
+    train_progress = tqdm(train_loader, desc=f'Epoch {epoch+1}/{num_epochs}', unit='batch')
+    for faces, emotions in train_progress:
         faces = faces.to(device)
         emotions = emotions.to(device)
         optimizer.zero_grad()
@@ -88,21 +90,25 @@ for epoch in range(num_epochs):
         loss = criterion(outputs, emotions)
         loss.backward()
         optimizer.step()
-
         train_loss += loss.item() * faces.size(0)
         _, predicted = torch.max(outputs, 1)
         train_total += emotions.size(0)
         train_correct += (predicted == torch.argmax(emotions, dim=1)).sum().item()
-
+        train_progress.set_postfix({
+            'loss': loss.item(),
+            'train_accuracy': train_correct / train_total
+        })
     train_loss /= train_total
     train_accuracy = train_correct / train_total
 
+    #val
     model.eval()
     val_loss = 0
     val_correct = 0
     val_total = 0
+    val_progress = tqdm(val_loader, desc=f'Validation {epoch+1}/{num_epochs}', unit='batch')
     with torch.no_grad():
-        for faces, emotions in test_loader:
+        for faces, emotions in val_progress:
             faces = faces.to(device)
             emotions = emotions.to(device)
 
@@ -113,6 +119,10 @@ for epoch in range(num_epochs):
             _, predicted = torch.max(outputs, 1)
             val_total += emotions.size(0)
             val_correct += (predicted == torch.argmax(emotions, dim=1)).sum().item()
+            val_progress.set_postfix({
+                'loss': loss.item(),
+                'val_accuracy': val_correct / val_total
+            })
 
     val_loss /= val_total
     val_accuracy = val_correct / val_total
